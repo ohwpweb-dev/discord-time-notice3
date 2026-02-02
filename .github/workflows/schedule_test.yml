@@ -1,0 +1,11 @@
+name: schedule test
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "schedule alive"
