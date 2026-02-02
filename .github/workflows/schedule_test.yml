@@ -1,11 +1,10 @@
-name: schedule test
+name: manual test
 
 on:
-  schedule:
-    - cron: '*/1 * * * *'
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "schedule alive"
+      - run: echo "manual ok"
