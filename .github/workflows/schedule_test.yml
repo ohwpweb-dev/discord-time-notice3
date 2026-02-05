@@ -21,7 +21,7 @@ jobs:
             exit 0
           fi
 
-          if [ "$MIN" -ge 0 ] && [ "$MIN" -le 29 ]; ; then
+          if [ "$MIN" -ge 0 ] && [ "$MIN" -le 29 ]; then
             TITLE="定時通知"
             MESSAGE="30分後に接続をおとすよ"
             FOOTER="21:30 JST"
@@ -31,7 +31,7 @@ jobs:
             MESSAGE="15分後に接続をおとすよ"
             FOOTER="21:45 JST"
             COLOR=16776960
-          elif  [ "$MIN" -ge 50 ] && [ "$MIN" -le 59 ];; then
+          elif  [ "$MIN" -ge 50 ] && [ "$MIN" -le 59 ]; then
             TITLE="ご利用ありがとうございました"
             MESSAGE="本日の利用ありがとうございました。"
             FOOTER="21:59 JST"
