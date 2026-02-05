@@ -1,12 +1,57 @@
-name: schedule check
+name: Discord Time Notice (Stable Guarded)
 
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/1 13 * * *'
   workflow_dispatch:
 
 jobs:
-  check:
+  notify:
     runs-on: ubuntu-latest
     steps:
-      - run: date
+      - name: Send Discord Embed
+        run: |
+          HOUR=$(date +%H)
+          MIN=$(date +%M)
+
+          KEY="${HOUR}${MIN}"
+          FILE="/tmp/sent_${KEY}"
+
+          if [ -f "$FILE" ]; then
+            exit 0
+          fi
+
+          if [ "$MIN" = "30" ]; then
+            TITLE="定時通知"
+            MESSAGE="30分後に接続をおとすよ"
+            FOOTER="21:30 JST"
+            COLOR=16753920
+          elif [ "$MIN" = "45" ]; then
+            TITLE="定時通知"
+            MESSAGE="15分後に接続をおとすよ"
+            FOOTER="21:45 JST"
+            COLOR=16776960
+          elif [ "$MIN" = "59" ]; then
+            TITLE="ご利用ありがとうございました"
+            MESSAGE="本日の利用ありがとうございました。"
+            FOOTER="21:59 JST"
+            COLOR=65280
+          else
+            exit 0
+          fi
+
+          touch "$FILE"
+
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"content\": \"@here\",
+              \"embeds\": [{
+                \"title\": \"${TITLE}\",
+                \"description\": \"${MESSAGE}\",
+                \"color\": ${COLOR},
+                \"footer\": { \"text\": \"${FOOTER}\" }
+              }]
+            }" \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
+            
