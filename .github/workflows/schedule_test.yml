@@ -33,7 +33,7 @@ jobs:
             COLOR=16776960
           elif  [ "$MIN" -ge 50 ] && [ "$MIN" -le 59 ]; then
             TITLE="ご利用ありがとうございました"
-            MESSAGE="本日の利用ありがとうございました。"
+            MESSAGE="本日の利用ありがとうございました"
             FOOTER="21:59 JST"
             COLOR=65280
           else
